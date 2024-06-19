@@ -31,7 +31,6 @@ export interface User {
   }
   export  interface CommentUpdate {
     content: string;
-    Id: number|null;
    likes:number[];
   }
   

@@ -16,7 +16,7 @@ class CommentService {
     
     static async createAComment(data:Partial<CommentCreate>): Promise<CommentData | null> {
         try {
-            
+     
             const response = await interceptor.post(`/comments`,data);
             return response.data;
         } catch (error) {
@@ -34,9 +34,10 @@ class CommentService {
             return null;
         }
     }
-    static async likeComment(data:Partial<CommentUpdate>): Promise<CommentData | null> {
+    static async likeComment(data:Partial<CommentUpdate>,Id:number): Promise<CommentData | null> {
         try {
-            const response = await interceptor.patch(`/comments/${data.Id}`,data);
+            console.log(data);
+            const response = await interceptor.patch(`/comments/${Id}`,data);
             return response.data;
         } catch (error) {
             console.error("Error fetching comments:", error);

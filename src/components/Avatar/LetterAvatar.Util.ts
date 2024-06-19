@@ -15,7 +15,7 @@ const COLORS: Record<string, string> = {
     K: "#3f3e03",
     L: "#277634",
     M: "#4a1a00",
-    N: "#fd079f",
+    N: "#FF0000",
     O: "#256437",
     P: "#aeda09",
     Q: "#000000",

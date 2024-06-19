@@ -8,21 +8,17 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div>
-      <Head>
-        <title>My Next.js App</title>
-        <meta name="description" content="Welcome to my Next.js app!" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
 
-      <header className="bg-gray-800 py-4">
+
+      <header className="bg-gray-800 py-4 px-10">
         <nav className="container mx-auto flex items-center justify-between">
           <div>
-            <a href="#" className="text-white text-xl font-bold">My Next.js App</a>
+            <a href="#" className="text-white text-xl font-bold">###########</a>
           </div>
           <ul className="flex space-x-4">
-            <li><a href="#" className="text-white">Home</a></li>
-            <li><a href="#" className="text-white">About</a></li>
-            <li><a href="#" className="text-white">Contact</a></li>
+            <li><a href="#" className="text-white">.</a></li>
+            <li><a href="#" className="text-white">.</a></li>
+            <li><a href="#" className="text-white">.</a></li>
           </ul>
         </nav>
       </header>

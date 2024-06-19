@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 3000
 
 # Start the Next.js application
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]

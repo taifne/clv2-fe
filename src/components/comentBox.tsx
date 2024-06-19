@@ -4,7 +4,15 @@ import LetterAvatar from '@/components/Avatar/LetterAvatar';
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import CommentService from '@/services/comment';
 import { calculateTimeAgo } from '@/untils/TimeUntils';
-
+import {
+  Modal,
+  Button,
+  Text,
+  ActionIcon,
+  Input,
+  Password,
+  Checkbox,
+} from "rizzui";
 interface CommentProps {
   comment: Comment;
   userId: number | null;
@@ -25,14 +33,14 @@ const CommentComponent: React.FC<CommentProps> = ({ comment, userId, setParentID
     if (isIncluded && liked) {
       const updated = comment.likes.map(like => like.id).filter(item => item !== userId);
       //  console.log(userId,updated)
-      await CommentService.likeComment({ likes: updated, Id: comment.id });
+      await CommentService.likeComment({ likes: updated }, comment.id);
       OnUpdateComment();
     }
 
     if (!isIncluded && !liked) {
       const updated = [...comment.likes.map(like => like.id), userId ? userId : 0];
 
-      await CommentService.likeComment({ likes: updated, Id: comment.id });
+      await CommentService.likeComment({ likes: updated }, comment.id);
       OnUpdateComment();
     }
 
@@ -50,6 +58,7 @@ const CommentComponent: React.FC<CommentProps> = ({ comment, userId, setParentID
 
   const handleDelete = () => {
     DeleteAComment(comment.id);
+    
 
   };
 
@@ -65,6 +74,7 @@ const CommentComponent: React.FC<CommentProps> = ({ comment, userId, setParentID
   useEffect(() => {
     const like = comment.likes.map(like => like.id ? like.id : null).includes(userId);
     setLiked(like);
+    setReplying(false);
   }, [userId]);
 
   return (
@@ -72,7 +82,7 @@ const CommentComponent: React.FC<CommentProps> = ({ comment, userId, setParentID
       <div className="flex justify-start items-center mb-1 w-full">
         <div className="flex-grow flex-col ml-1 w-full">
           <span className="text-gray-600 font-bold text-sm">
-            <LetterAvatar label={comment.user.username} size={24} />&nbsp;{comment.user.username}
+            <LetterAvatar label={comment.user.username} size={26} />&nbsp;{comment.user.username}
           </span>
           {comment.deletedAt ? (
             <p className="text-gray-300 text-sm mb-1 ml-5">this  message have been delete</p>
@@ -83,7 +93,13 @@ const CommentComponent: React.FC<CommentProps> = ({ comment, userId, setParentID
           <div className="flex flex-row justify-evenly w-full">
             <div className="flex flex-row justify- w-4/5 pl-6">
               <span className="text-gray-500 text-sm mx-1">{calculateTimeAgo(new Date(comment.createdAt))}</span>
-              <button onClick={handleLike} className="text-sm mx-1 font-semibold text-gray-500 hover:text-cyan-500">Like</button>
+              <button
+                onClick={handleLike}
+                className={`text-sm mx-1 font-semibold ${liked ? 'text-cyan-500' : 'text-gray-500 hover:text-cyan-500'
+                  }`}
+              >
+                {liked ? 'Liked' : 'Like'}
+              </button>
               {userId === comment.user.id && (
                 <button onClick={handleDelete} className="text-sm font-semibold mx-1 text-gray-500 hover:text-red-700">Delete</button>
               )}
@@ -98,7 +114,7 @@ const CommentComponent: React.FC<CommentProps> = ({ comment, userId, setParentID
 
             <div className="flex w-1/5 justify-end pr-4">
               <span className="text-gray-500 text-sm mx-1">{comment?.likes?.length}</span>
-              {liked ? (<AiFillLike className='text-cyan-500'/>) : (<AiOutlineLike />)}</div>
+              {liked ? (<AiFillLike className='text-cyan-500' />) : (<AiOutlineLike />)}</div>
 
 
 

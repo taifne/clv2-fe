@@ -10,15 +10,12 @@ class PostService {
             interceptor.get("posts")
         )
 
-        return response.data;
+        return response;
     }
 
     static async getPostById(id: number) {
-        let response = await requestApiHelper<Post>(
-            interceptor.get(`/posts/${id}`)
-        )
-        console.log(response);
-                return response;
+        let response = await interceptor.get(`/posts/${id}`)  
+                     return response;
     }
 
 

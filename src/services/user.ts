@@ -7,11 +7,8 @@ import { User } from "@/types/user"
 class UserService {
 
     static async getUsers() {
-        let love= await requestApiHelper<User[]>(
-            interceptor.get("users")
-        )
-      
-        return love;
+        let listUsers= await interceptor.get("users")
+        return listUsers;
     }
 
 
